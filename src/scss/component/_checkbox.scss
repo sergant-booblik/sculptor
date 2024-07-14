@@ -1,0 +1,45 @@
+.checkbox__container {
+	@apply flex gap-3;
+	@apply relative;
+	@apply cursor-pointer;
+}
+
+.checkbox__container label {
+	@apply ms-3;
+}
+
+.checkbox__container .text {
+	@apply order-2;
+
+	a {
+		@apply font-semibold;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.checkbox__container input {
+	@apply absolute opacity-0 h-0 w-0;
+	@apply cursor-pointer;
+}
+
+.checkbox__container .checkmark {
+	@apply block;
+	@apply order-1;
+	@apply w-6 h-6;
+	@apply rounded;
+	@apply border border-slate-500;
+}
+
+.checkbox__container input:checked ~ .checkmark {
+	@apply bg-slate-950;
+	@apply border-0;
+
+	&::before {
+		content: url('@/assets/check.svg');
+		@apply absolute left-0;
+		@apply w-6 h-6;
+	}
+}

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "fonts";
+@import "global";
+
+@import "views/sign-page";
+
+@import "component/announcement-bar";
+@import "component/header";
+@import "component/slider";
+@import "component/banner-grid";
+@import "component/carousel";
+
+@import "component/input";
+@import "component/checkbox";
+@import "component/button";
+
+

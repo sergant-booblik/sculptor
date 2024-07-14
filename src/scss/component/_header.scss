@@ -1,0 +1,47 @@
+.header {
+	font-family: 'Space Grotesk', sans-serif;
+	@apply container;
+	@apply py-4;
+}
+
+.header__logo,
+.header__navbar-item {
+	@apply border-0;
+	@apply text-slate-950;
+}
+
+.header__wrapper {
+	@apply flex items-center justify-between;
+}
+
+.header__menu {
+	@apply flex gap-x-10;
+}
+
+.header__navbar {
+	@apply flex gap-4;
+}
+
+.header__navbar-item {
+	@apply flex items-center;
+}
+
+.header__menu-link {
+	@apply text-slate-500;
+	@apply border-0;
+
+	&--active,
+	&:hover {
+		@apply text-slate-950;
+	}
+}
+
+.header__cart-counter {
+	padding-right: 1px;
+	@apply flex items-center justify-center;
+	@apply w-5 h-5;
+	@apply bg-slate-950;
+	@apply rounded-full;
+	@apply text-xs font-semibold;
+	@apply text-slate-50;
+}

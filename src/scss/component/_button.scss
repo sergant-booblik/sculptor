@@ -1,0 +1,33 @@
+.button {
+	@apply flex items-center gap-1 justify-center;
+}
+
+.button--link {
+	@apply border-b;
+
+	&.button--primary {
+		@apply text-blue-700 border-blue-700;
+	}
+
+	&.button--dark {
+		@apply text-slate-950 border-slate-950;
+	}
+}
+
+.button--solid {
+	@apply px-4 py-2;
+	@apply rounded-md;
+
+	&:active {
+		transform: translateY(2px);
+	}
+
+	&.button--dark {
+		@apply bg-slate-950 border border-slate-950;
+		@apply text-slate-50;
+	}
+
+	&.button--flex {
+		@apply w-full;
+	}
+}

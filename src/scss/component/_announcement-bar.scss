@@ -1,0 +1,19 @@
+.announcement-bar {
+	@apply px-4;
+	@apply bg-slate-200;
+}
+
+.announcement-bar__wrapper {
+	@apply relative;
+	@apply flex gap-2 items-center justify-center;
+	@apply py-2;
+}
+
+.announcement-bar__text {
+	font-family: 'Inter', sans-serif;
+	@apply font-semibold;
+}
+
+.announcement-bar__close {
+	@apply absolute right-0;
+}

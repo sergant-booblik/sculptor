@@ -1,0 +1,21 @@
+.input-group {
+	@apply relative;
+
+	input {
+		@apply z-10;
+		@apply w-full;
+		@apply py-2 px-1;
+		@apply bg-transparent;
+		@apply border-slate-100 border-b-2;
+		@apply outline-0;
+
+		&::placeholder {
+			@apply text-slate-500;
+		}
+	}
+
+	.last-icon {
+		@apply absolute right-1 top-4;
+		@apply text-slate-500;
+	}
+}

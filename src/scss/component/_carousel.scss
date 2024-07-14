@@ -1,0 +1,95 @@
+.carousel {
+	@apply mt-12;
+}
+
+.carousel__header {
+	@apply container;
+	@apply flex justify-between items-end;
+	@apply mb-12;
+
+	.button {
+		@apply h-min;
+	}
+}
+
+.carousel__items {
+	@apply overflow-x-scroll;
+	@apply flex gap-6;
+	@apply mb-14;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.carousel__item {
+	@apply shrink-0;
+	@apply cursor-pointer;
+
+	&:hover {
+		.button {
+			opacity: 1;
+		}
+	}
+
+	.button {
+		opacity: 0;
+		transition: opacity 300ms ease-in-out;
+	}
+}
+
+.card {
+	@apply flex flex-col justify-between;
+	@apply w-64 h-full;
+	@apply p-4;
+	background-color: #F3F5F7;
+}
+
+.card__top {
+	@apply flex;
+}
+
+.card__image {
+	@apply h-44;
+	@apply object-contain;
+}
+
+.card__labels {
+	@apply flex flex-col;
+}
+
+.card__label {
+	@apply w-min;
+	@apply py-1 px-3.5;
+	@apply mb-2;
+	@apply rounded;
+	@apply font-semibold text-center;
+
+	&--regular {
+		@apply bg-white;
+		@apply text-slate-950;
+	}
+
+	&--sale {
+		@apply bg-green-400;
+		@apply text-slate-50;
+	}
+}
+
+.carousel__scrollbar {
+	@apply container;
+}
+
+.carousel__track {
+	@apply relative;
+	@apply w-full h-1;
+	@apply bg-slate-200;
+	@apply rounded;
+}
+
+.carousel__thumb {
+	@apply absolute;
+	@apply bg-slate-800;
+	@apply h-full;
+	@apply rounded;
+}
