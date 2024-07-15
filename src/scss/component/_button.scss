@@ -12,6 +12,16 @@
 	&.button--dark {
 		@apply text-slate-950 border-slate-950;
 	}
+
+	svg {
+		transition: transform 200ms ease-in-out;
+	}
+
+	&:hover {
+		svg {
+			transform: translateX(2px);
+		}
+	}
 }
 
 .button--solid {

@@ -3,6 +3,7 @@
   <BannerGridSection />
   <ProductCarousel />
   <ValuesSection />
+  <BannerSection />
 </template>
 
 <script lang="ts">
@@ -11,12 +12,14 @@ import SliderSection from '@/components/SliderSection.vue';
 import BannerGridSection from '@/components/BannerGridSection.vue';
 import ProductCarousel from '@/components/ProductCarousel.vue';
 import ValuesSection from '@/components/ValuesSection.vue';
+import BannerSection from '@/components/BannerSection.vue';
 
 const HomeView = defineComponent({
   components: {
-    SliderSection,
     BannerGridSection,
+    BannerSection,
     ProductCarousel,
+    SliderSection,
     ValuesSection,
   },
 });
