@@ -12,10 +12,21 @@
 	}
 }
 
+.carousel__controls {
+	@apply flex;
+}
+
+.carousel__control {
+	@apply cursor-pointer;
+}
+
 .carousel__items {
+	@apply relative;
 	@apply overflow-x-scroll;
 	@apply flex gap-6;
 	@apply mb-14;
+	@apply snap-mandatory snap-x;
+	transition: left 800ms ease-in-out;
 
 	&::-webkit-scrollbar {
 		display: none;
@@ -23,8 +34,11 @@
 }
 
 .carousel__item {
+	@apply flex flex-col justify-between;
 	@apply shrink-0;
 	@apply cursor-pointer;
+	@apply snap-start;
+	scroll-snap-stop: always;
 
 	&:hover {
 		.button {
@@ -39,19 +53,42 @@
 }
 
 .card {
-	@apply flex flex-col justify-between;
-	@apply w-64 h-full;
-	@apply p-4;
+	@apply flex flex-col justify-between grow;
+	@apply w-64;
 	background-color: #F3F5F7;
 }
 
 .card__top {
 	@apply flex;
+	@apply px-4 pt-4;
+}
+
+.card__bottom {
+	@apply relative;
+	@apply px-4;
+	@apply bottom-4;
 }
 
 .card__image {
 	@apply h-44;
 	@apply object-contain;
+}
+
+.carousel-item__info {
+	@apply flex flex-col gap-1;
+	@apply mt-2;
+}
+
+.carousel-item__rating {
+	@apply flex gap-1;
+
+	.rating__star--full::before {
+		content: url('@/components/icon/star.svg');
+	}
+
+	.rating__star--empty::before {
+		content: url('@/components/icon/star-empty.svg');
+	}
 }
 
 .card__labels {
@@ -76,20 +113,34 @@
 	}
 }
 
-.carousel__scrollbar {
-	@apply container;
+.carousel__item--more {
+	.card {
+		@apply flex-row items-center justify-center;
+	}
+
+	.button {
+		@apply opacity-100;
+	}
+
+	.carousel-item__info {
+		@apply h-20;
+	}
 }
 
-.carousel__track {
-	@apply relative;
-	@apply w-full h-1;
-	@apply bg-slate-200;
-	@apply rounded;
+.carousel-item__name {
+	@apply font-semibold;
 }
 
-.carousel__thumb {
-	@apply absolute;
-	@apply bg-slate-800;
-	@apply h-full;
-	@apply rounded;
+.carousel-item__price {
+	@apply flex gap-2;
+}
+
+.carousel-item__new-price {
+	@apply font-semibold;
+}
+
+.carousel-item__old-price {
+	@apply text-slate-500;
+	@apply line-through;
+
 }

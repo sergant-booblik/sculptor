@@ -9,11 +9,20 @@
           New<br>
           Arrivals
         </h4>
-        <ButtonComponent
-          label="More products"
-          type="link"
-          color="dark"
-        />
+        <div class="carousel__controls">
+          <div
+            class="carousel__control carousel__control--prev"
+            @click="scrollCard(currentCardIndex - 1)"
+          >
+            <SliderControlPrevIcon />
+          </div>
+          <div
+            class="carousel__control carousel__control--next"
+            @click="scrollCard(currentCardIndex + 1)"
+          >
+            <SliderControlNextIcon />
+          </div>
+        </div>
       </div>
       <div
         ref="carouselItemsRef"
@@ -25,7 +34,10 @@
           :key="index"
           class="carousel__item"
         >
-          <div class="card">
+          <div
+            ref="cardRef"
+            class="card"
+          >
             <div class="card__top">
               <div
                 v-if="product.labels"
@@ -75,13 +87,15 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="carousel__scrollbar">
-        <div class="carousel__track">
-          <div
-            class="carousel__thumb"
-            :style="scrollbarThumbStyle"
-          />
+        <div class="carousel__item carousel__item--more">
+          <div class="card">
+            <ButtonComponent
+              type="link"
+              color="dark"
+              label="See all products"
+            />
+          </div>
+          <div class="carousel-item__info" />
         </div>
       </div>
     </div>
@@ -89,7 +103,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref, StyleValue } from 'vue';
+import { defineComponent, onMounted, reactive, ref } from 'vue';
 import ProductImage from '@/assets/products';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import Icon from '@/components/icon';
@@ -102,45 +116,48 @@ enum LabelType {
 const ProductCarousel = defineComponent({
   components: {
     ButtonComponent,
+    SliderControlPrevIcon: Icon.SliderControlPrevIcon,
+    SliderControlNextIcon: Icon.SliderControlNextIcon,
   },
   setup() {
     const carouselItemsRef = ref<HTMLElement>();
     const containerRef = ref<HTMLElement>();
+    const cardRef = ref<HTMLElement[]>();
 
-    const containerStyle = ref<StyleValue>();
-    const scrollbarThumbStyle = reactive<StyleValue>({ width: '0px', left: '12px' });
+    const containerStyle = reactive({ padding: '0 0', scrollPaddingLeft: '0px' });
 
     const containerPadding = ref(32);
 
-    const calculatePadding = () => {
-      containerPadding.value = containerRef.value?.getBoundingClientRect().left + 32;
-      containerStyle.value = { padding: `0 ${containerPadding.value}px` };
+    const currentCardIndex = ref(0);
+
+    const cardWidth = ref(0);
+
+    const scrollCard = (toCard: number) => {
+      const scrollDirection = toCard - currentCardIndex.value;
+      const scrollOffset = ((cardWidth.value + 24) * scrollDirection);
+      const currentScrollPosition = (carouselItemsRef.value?.scrollLeft ?? 0);
+      carouselItemsRef.value?.scrollTo({
+        left: scrollOffset + currentScrollPosition,
+        behavior: 'smooth',
+      });
+      currentCardIndex.value = toCard;
     };
 
-
-    // TODO Rewrite it!
-    const calculateScrollbarThumbStyle = () => {
-      const containerWidth = containerRef.value?.offsetWidth;
-      const carouselItemsWidth = carouselItemsRef.value?.scrollWidth;
-      const scrollTrackLeftCoefficient = containerWidth / carouselItemsWidth;
-      const scrollbarThumbWidthCoefficient = containerWidth / carouselItemsWidth;
-      const scrollbarThumbWidth = containerWidth * scrollbarThumbWidthCoefficient;
-      scrollbarThumbStyle.width = `${scrollbarThumbWidth}px`;
-      scrollbarThumbStyle.left = `${carouselItemsRef.value?.scrollLeft * scrollTrackLeftCoefficient}px`
+    const calculatePadding = () => {
+      containerPadding.value = (containerRef.value?.getBoundingClientRect().left ?? 0) + 32;
+      containerStyle.padding = `0 ${containerPadding.value}px`;
+      containerStyle.scrollPaddingLeft = `${containerPadding.value}px`;
     };
 
     window.addEventListener('resize', () => {
       calculatePadding();
-      calculateScrollbarThumbStyle();
     });
 
     onMounted(() => {
       calculatePadding();
-      calculateScrollbarThumbStyle();
-
-      carouselItemsRef.value?.addEventListener('scroll', () => {
-        calculateScrollbarThumbStyle();
-      });
+      if (cardRef.value) {
+        cardWidth.value = cardRef.value[0].offsetWidth ?? 0;
+      }
     });
 
     const products = [
@@ -212,8 +229,10 @@ const ProductCarousel = defineComponent({
       products,
       containerRef,
       carouselItemsRef,
+      cardRef,
+      currentCardIndex,
       containerStyle,
-      scrollbarThumbStyle,
+      scrollCard,
     };
   },
 });
