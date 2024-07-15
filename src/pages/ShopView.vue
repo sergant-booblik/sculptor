@@ -1,14 +1,11 @@
 <template>
-  <ProductCarousel2 />
+  SHOP
 </template>
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import ProductCarousel2 from "@/components/ProductCarousel2.vue";
 
-const ShopView = defineComponent({
-  components: {ProductCarousel2}
-});
+const ShopView = defineComponent({});
 
 export default ShopView;
 </script>
