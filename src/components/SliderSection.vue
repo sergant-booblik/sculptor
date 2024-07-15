@@ -59,11 +59,6 @@ import {computed, defineComponent, ref} from 'vue';
 import sliderImage from '@/assets/slide-image.png';
 import Icon from '@/components/icon';
 
-enum Direction {
-  PREV = 'PREV',
-  NEXT = 'NEXT',
-}
-
 const SliderSection = defineComponent({
   components: {
     SliderControlPrevIcon: Icon.SliderControlPrevIcon,
@@ -80,7 +75,7 @@ const SliderSection = defineComponent({
 
     const slidesStyle = computed(() => ({
       left: `${currentSlideIndex.value * -100}%`
-    }))
+    }));
 
     return {
       slides,
