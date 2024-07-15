@@ -13,6 +13,8 @@ const Icon = {
   SearchIcon: defineAsyncComponent(() => import('@/components/icon/search.svg')),
   SliderControlNextIcon: defineAsyncComponent(() => import('@/components/icon/slider-control-next.svg')),
   SliderControlPrevIcon: defineAsyncComponent(() => import('@/components/icon/slider-control-prev.svg')),
+  StarControlPrevIcon: defineAsyncComponent(() => import('@/components/icon/star.svg')),
+  StarEmptyControlPrevIcon: defineAsyncComponent(() => import('@/components/icon/star-empty.svg')),
   TicketPercentIcon: defineAsyncComponent(() => import('@/components/icon/ticket-percent.svg')),
 }
 

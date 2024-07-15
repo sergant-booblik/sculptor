@@ -55,15 +55,24 @@
               />
             </div>
           </div>
-          <div class="carousel-item__rating">
-            {{ product.rating }}
-          </div>
-          <div class="carousel-item__name">
-            {{ product.name }}
-          </div>
-          <div class="carousel-item__price">
-            <span class="carousel-item__new-price">{{ product.price }}</span>
-            <span class="carousel-item__old-price">{{ product.oldPrice }}</span>
+          <div class="carousel-item__info">
+            <div class="carousel-item__rating">
+              <div
+                v-for="index in 5"
+                :key="index"
+                :class="[
+                  'rating__star',
+                  product.rating < index ? 'rating__star--empty' : 'rating__star--full',
+                ]"
+              />
+            </div>
+            <div class="carousel-item__name">
+              {{ product.name }}
+            </div>
+            <div class="carousel-item__price">
+              <span class="carousel-item__new-price">{{ product.price }}</span>
+              <span class="carousel-item__old-price">{{ product.oldPrice }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -83,6 +92,7 @@
 import { computed, defineComponent, onMounted, reactive, ref, StyleValue } from 'vue';
 import ProductImage from '@/assets/products';
 import ButtonComponent from '@/components/ButtonComponent.vue';
+import Icon from '@/components/icon';
 
 enum LabelType {
   REGULAR = 'regular',
@@ -154,13 +164,13 @@ const ProductCarousel = defineComponent({
         name: 'Beige Table Lamp',
         price: '$19.00',
         labels: [{ text: 'NEW', type: LabelType.REGULAR }],
-        rating: 3.5,
+        rating: 3,
         image: ProductImage.Product3,
       },
       {
         name: 'Bamboo basket',
         price: '$24.99',
-        rating: 2.1,
+        rating: 2,
         image: ProductImage.Product4,
       },
       {
@@ -168,7 +178,7 @@ const ProductCarousel = defineComponent({
         oldPrice: '$50.00',
         price: '$24.99',
         labels: [{ text: '-50%', type: LabelType.SALE }],
-        rating: 0,
+        rating: 1,
         image: ProductImage.Product5,
       },
       {
@@ -180,19 +190,19 @@ const ProductCarousel = defineComponent({
       {
         name: 'Lamp',
         price: '$39.00',
-        rating: 0,
+        rating: 3,
         image: ProductImage.Product7,
       },
       {
         name: 'Light Beige Pillow',
         price: '$3.99',
-        rating: 0,
+        rating: 5,
         image: ProductImage.Product8,
       },
       {
         name: 'Red Tray table',
         price: '$19.19',
-        rating: 0,
+        rating: 2,
         image: ProductImage.Product9,
       },
 
