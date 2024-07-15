@@ -38,6 +38,7 @@
 	@apply shrink-0;
 	@apply cursor-pointer;
 	@apply snap-start;
+	width: calc(25% - 1.5rem * 0.75);
 	scroll-snap-stop: always;
 
 	&:hover {
@@ -54,7 +55,7 @@
 
 .card {
 	@apply flex flex-col justify-between grow;
-	@apply w-64;
+	@apply w-full;
 	background-color: #F3F5F7;
 }
 
@@ -114,6 +115,8 @@
 }
 
 .carousel__item--more {
+	@apply cursor-default;
+
 	.card {
 		@apply flex-row items-center justify-center;
 	}
