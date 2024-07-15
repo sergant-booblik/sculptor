@@ -7,7 +7,18 @@
           :key="index"
           class="value__card"
         >
-          {{ value }}
+          <component
+            :is="value.icon"
+            class="value-card__icon"
+          />
+          <p
+            class="value-card__title"
+            v-text="value.title"
+          />
+          <p
+            class="value-card__subtitle"
+            v-text="value.subtitle"
+          />
         </div>
       </div>
     </div>

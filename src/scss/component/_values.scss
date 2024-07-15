@@ -1,0 +1,28 @@
+.values__wrapper {
+	@apply container;
+	@apply mb-12;
+}
+
+.values__cards {
+	@apply flex space-x-6;
+}
+
+.value__card {
+	@apply w-1/4;
+	@apply px-8 py-12;
+	background-color: #F3F5F7;
+}
+
+.value-card__icon {
+	@apply mb-4;
+}
+
+.value-card__title {
+	@apply mb-2;
+	@apply text-xl;
+}
+
+.value-card__subtitle {
+	@apply text-sm;
+	@apply text-slate-500;
+}
