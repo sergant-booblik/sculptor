@@ -6,7 +6,7 @@ interface Api {
 }
 
 function createApi(): Api {
-  const apiUrl = 'http://localhost:8000/api';
+  const apiUrl = import.meta.env.API_URL;
 
   return {
     fetchProducts: createFetchProductsFunction(apiUrl),
