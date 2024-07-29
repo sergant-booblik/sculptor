@@ -137,7 +137,7 @@ const AddQuestionView = defineComponent({
     const saveQuestion = () => {
       return new Promise(() => {
         loading.value = true;
-        fetch('http://localhost:8000/api/user-game/', {
+        fetch(`${import.meta.env.API_URL}/user-game/`, {
           method: 'POST',
           body: JSON.stringify(question.value),
           headers: {
