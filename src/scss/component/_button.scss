@@ -32,6 +32,11 @@
 		transform: translateY(2px);
 	}
 
+	&.button--primary {
+		@apply bg-blue-800 border bg-blue-800;
+		@apply text-slate-200;
+	}
+
 	&.button--dark {
 		@apply bg-slate-950 border border-slate-950;
 		@apply text-slate-50;

@@ -3,7 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/pages/HomeView.vue'
 import SignInView from '@/pages/SignInView.vue';
 import SignUpView from '@/pages/SignUpView.vue';
-import ShopView from "@/pages/ShopView.vue";
+import ShopView from '@/pages/ShopView.vue';
+import AddQuestionView from '@/pages/AddQuestionView.vue';
 
 interface RouteMeta {
   layout: LayoutType,
@@ -81,6 +82,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: LayoutType.MAIN },
     component: HomeView,
   },
+  {
+    path: '/add-question',
+    name: 'ADD_QUESTION',
+    meta: { layout: LayoutType.EMPTY },
+    component: AddQuestionView,
+  }
 
 ]
 
