@@ -134,10 +134,12 @@ const AddQuestionView = defineComponent({
       ]
     });
 
+    console.log(import.meta.env.VITE_API_URL);
+
     const saveQuestion = () => {
       return new Promise(() => {
         loading.value = true;
-        fetch(`${import.meta.env.API_URL}/user-game/`, {
+        fetch(`${import.meta.env.VITE_API_URL}/user-game/`, {
           method: 'POST',
           body: JSON.stringify(question.value),
           headers: {

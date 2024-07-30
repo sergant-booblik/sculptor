@@ -6,7 +6,7 @@ interface Api {
 }
 
 function createApi(): Api {
-  const apiUrl = import.meta.env.API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   return {
     fetchProducts: createFetchProductsFunction(apiUrl),
