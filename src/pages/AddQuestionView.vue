@@ -144,7 +144,7 @@ const AddQuestionView = defineComponent({
           body: JSON.stringify(question.value),
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Token ${token}`,
           }
         }).then((resp) => {
           if (!resp.ok) {
