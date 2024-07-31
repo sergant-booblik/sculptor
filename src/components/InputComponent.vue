@@ -1,5 +1,10 @@
 <template>
-  <div class="input-group">
+  <div
+    :class="[
+      'input-group',
+      { 'input-group--invalid': errors }
+    ]"
+  >
     <label>
       {{ label }}
     </label>
@@ -7,7 +12,6 @@
       v-model="inputValue"
       :type="calculateType"
       :placeholder="placeholder"
-      @input="debounceInput"
     />
     <EyeIcon
       v-if="type === 'password'"
@@ -15,6 +19,14 @@
       class="last-icon"
       @click="changePasswordVisibility"
     />
+    <ul class="input-error">
+      <li
+        v-for="(error, index) in errors"
+        :key="index"
+      >
+        {{ error }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -50,8 +62,12 @@ const InputComponent = defineComponent({
       type: String as PropType<InputType>,
       default: InputType.TEXT,
     },
+    errors: {
+      type: Array as PropType<String[]>,
+      default: undefined,
+    },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
     const { type } = toRefs(props)
 
@@ -59,7 +75,10 @@ const InputComponent = defineComponent({
 
     const inputValue = computed({
       get: () => props.modelValue,
-      set: (value) => emit('update:modelValue', value),
+      set: (value) => {
+        emit('update:modelValue', value);
+        emit('change');
+      },
     });
 
     const calculateType = computed(() => {

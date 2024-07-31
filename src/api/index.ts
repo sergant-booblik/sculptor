@@ -3,12 +3,13 @@ import type {Product} from "@/stores/product";
 import {
   createRegisterFunction,
   type RegisterRequest,
-  type RegisterResponse,
+  type RegisterSuccessResponse,
+  type RegisterFailedResponse,
 } from "@/api/register";
 
 interface Api {
   fetchProducts: () => Promise<Product[]>;
-  register: (request: RegisterRequest) => Promise<RegisterResponse>;
+  register: (request: RegisterRequest) => Promise<RegisterSuccessResponse | RegisterFailedResponse>;
 }
 
 function createApi(): Api {

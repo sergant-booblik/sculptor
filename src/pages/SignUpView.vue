@@ -29,59 +29,57 @@
         />
         <InputComponent
           v-model="user.username"
+          :errors="error?.username"
           placeholder="Username"
           type="text"
+          @change="clearError('username')"
         />
         <InputComponent
           v-model="user.email"
+          :errors="error?.email"
           placeholder="Email address"
           type="email"
+          @change="clearError('email')"
         />
         <InputComponent
           v-model="user.password"
+          :errors="error?.password"
           placeholder="Password"
           type="password"
+          @change="clearError('password')"
         />
         <CheckboxComponent
+          v-model="isAgreeWithPolicies"
           label="I agree with <a href='#'>Privacy Policy</a href='#'> and <a>Terms of Use</a>"
         />
         <ButtonComponent
           flex
           color="dark"
           label="Submit"
+          :disabled="!isFormCanBeSubmitted"
           @click.prevent="register"
         />
       </form>
-      <div class="mt-8">
-        {{ result }}
-      </div>
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, type Ref } from 'vue';
+import { computed, defineComponent, ref, type Ref } from 'vue';
 import InputComponent from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
 import ButtonComponent from '@/components/ButtonComponent.vue';
-import { useAuthStore } from '@/stores/auth';
+import { type ErrorData, useAuthStore } from '@/stores/auth';
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+import { RouteName } from "@/router";
 
 export interface RegisterData {
   name: string,
   username: string,
   email: string,
   password: string,
-}
-
-function useRegister(user: Ref<RegisterData>): () => void {
-  function register(): void {
-    const authStore = useAuthStore();
-    authStore.register(user.value);
-  }
-
-  return register;
 }
 
 const SignView = defineComponent({
@@ -92,8 +90,9 @@ const SignView = defineComponent({
   },
   setup() {
     const authStore = useAuthStore();
+    const router = useRouter();
 
-    const { result } = storeToRefs(authStore);
+    const { result, error } = storeToRefs(authStore);
 
     const user = ref<RegisterData>({
       name: '',
@@ -102,13 +101,39 @@ const SignView = defineComponent({
       password: '',
     });
 
-    const register = useRegister(user);
+    const isAgreeWithPolicies = ref(false);
+
+    const isRegisteredSuccess = computed(() => result.value !== undefined);
+
+    function register(): void {
+      authStore.register(user.value).then(() => {
+        if (isRegisteredSuccess.value) {
+          router.push({ name: RouteName.SIGN_IN, query: { 'successful-registered': 'true' } })
+        }
+      })
+    }
+
+    const clearError = (field: keyof ErrorData) => {
+      authStore.clearError(field);
+    };
+
+    const isFormCanBeSubmitted = computed(() => {
+      return user.value.name !== ''
+        && user.value.username !== ''
+        && user.value.email !== ''
+        && user.value.password !== ''
+        && isAgreeWithPolicies.value;
+    });
 
     return {
+      CoverImage,
       user,
       result,
+      error,
       register,
-      CoverImage,
+      isAgreeWithPolicies,
+      isFormCanBeSubmitted,
+      clearError,
     };
   },
 });

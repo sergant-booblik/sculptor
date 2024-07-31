@@ -26,6 +26,7 @@
 }
 
 .checkbox__container .checkmark {
+	@apply shrink-0;
 	@apply block;
 	@apply order-1;
 	@apply w-6 h-6;

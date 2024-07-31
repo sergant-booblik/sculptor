@@ -18,4 +18,41 @@
 		@apply absolute right-1 top-4;
 		@apply text-slate-500;
 	}
+
+	.input-error {
+		@apply absolute;
+		@apply mt-2;
+		@apply text-xs text-red-700;
+
+		li {
+			animation: shake 150ms;
+		}
+	}
+
+	&--invalid {
+		input {
+			@apply border-red-700;
+			@apply text-red-700;
+			@apply outline-0;
+
+			&::placeholder {
+				@apply text-red-700;
+			}
+		}
+	}
+}
+
+@keyframes shake {
+	0% {
+		margin-left: 0;
+	}
+	25% {
+		margin-left: 5px;
+	}
+	75% {
+		margin-left: -5px;
+	}
+	100% {
+		margin-left: 0;
+	}
 }

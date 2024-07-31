@@ -1,3 +1,6 @@
+import type { RegisterData } from "@/pages/SignUpView.vue";
+import type { ErrorData } from "@/stores/auth";
+
 export interface RegisterRequest {
   readonly name: string;
   readonly username: string;
@@ -5,7 +8,10 @@ export interface RegisterRequest {
   readonly password: string;
 }
 
-export interface RegisterResponse {}
+export interface RegisterResponse {
+  result?: Partial<RegisterData>,
+  error?: ErrorData,
+}
 
 export function createRegisterFunction(apiUrl: string): (request: RegisterRequest) => Promise<RegisterResponse> {
   return (request: RegisterRequest): Promise<RegisterResponse> => {
@@ -16,7 +22,19 @@ export function createRegisterFunction(apiUrl: string): (request: RegisterReques
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((resp) => resp.json())
-      .then((resp: RegisterResponse) => resp);
+    }).then((resp) => {
+      if (resp.ok) {
+        return resp.json().then((result): RegisterResponse => {
+          return {
+            result,
+          }
+        })
+      }
+      return resp.json().then((error): RegisterResponse => {
+        return {
+          error,
+        }
+      });
+    });
   };
 }

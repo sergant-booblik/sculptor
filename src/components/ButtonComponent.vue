@@ -6,6 +6,7 @@
       `button--${color}`,
       {'button--flex': flex},
     ]"
+    :disabled="disabled"
     @click="$emit('click')"
   >
     {{ label }}
@@ -48,6 +49,10 @@ const ButtonComponent = defineComponent({
     label: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['click'],
