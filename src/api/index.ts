@@ -1,8 +1,14 @@
 import {createFetchProductsFunction} from "@/api/fetch-products";
 import type {Product} from "@/stores/product";
+import {
+  createRegisterFunction,
+  type RegisterRequest,
+  type RegisterResponse,
+} from "@/api/register";
 
 interface Api {
   fetchProducts: () => Promise<Product[]>;
+  register: (request: RegisterRequest) => Promise<RegisterResponse>;
 }
 
 function createApi(): Api {
@@ -10,6 +16,7 @@ function createApi(): Api {
 
   return {
     fetchProducts: createFetchProductsFunction(apiUrl),
+    register: createRegisterFunction(apiUrl),
   }
 }
 

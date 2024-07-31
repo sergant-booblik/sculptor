@@ -18,20 +18,27 @@
           Sign in
         </router-link>
       </p>
-      <form class="auth-form">
+      <form
+        class="auth-form"
+        @submit.prevent="register"
+      >
         <InputComponent
+          v-model="user.name"
           placeholder="Your name"
           type="text"
         />
         <InputComponent
+          v-model="user.username"
           placeholder="Username"
           type="text"
         />
         <InputComponent
+          v-model="user.email"
           placeholder="Email address"
-          type="text"
+          type="email"
         />
         <InputComponent
+          v-model="user.password"
           placeholder="Password"
           type="password"
         />
@@ -42,18 +49,40 @@
           flex
           color="dark"
           label="Submit"
+          @click.prevent="register"
         />
       </form>
+      <div class="mt-8">
+        {{ result }}
+      </div>
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, type Ref } from 'vue';
 import InputComponent from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
-import ButtonComponent from "@/components/ButtonComponent.vue";
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import { useAuthStore } from '@/stores/auth';
+import { storeToRefs } from "pinia";
+
+export interface RegisterData {
+  name: string,
+  username: string,
+  email: string,
+  password: string,
+}
+
+function useRegister(user: Ref<RegisterData>): () => void {
+  function register(): void {
+    const authStore = useAuthStore();
+    authStore.register(user.value);
+  }
+
+  return register;
+}
 
 const SignView = defineComponent({
   components: {
@@ -62,7 +91,23 @@ const SignView = defineComponent({
     CheckboxComponent,
   },
   setup() {
+    const authStore = useAuthStore();
+
+    const { result } = storeToRefs(authStore);
+
+    const user = ref<RegisterData>({
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+    });
+
+    const register = useRegister(user);
+
     return {
+      user,
+      result,
+      register,
       CoverImage,
     };
   },

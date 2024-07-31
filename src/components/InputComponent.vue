@@ -4,8 +4,10 @@
       {{ label }}
     </label>
     <input
+      v-model="inputValue"
       :type="calculateType"
       :placeholder="placeholder"
+      @input="debounceInput"
     />
     <EyeIcon
       v-if="type === 'password'"
@@ -23,6 +25,7 @@ import Icon from '@/components/icon';
 
 export enum InputType {
   TEXT = 'text',
+  EMAIL = 'email',
   PASSWORD = 'password',
 }
 
@@ -31,6 +34,10 @@ const InputComponent = defineComponent({
     EyeIcon: Icon.EyeIcon,
   },
   props: {
+    modelValue: {
+      type: String,
+      default: 'undefined',
+    },
     label: {
       type: String,
       default: undefined,
@@ -40,14 +47,20 @@ const InputComponent = defineComponent({
       default: undefined,
     },
     type: {
-      type: String as PropType<any>,
+      type: String as PropType<InputType>,
       default: InputType.TEXT,
     },
   },
-  setup(props) {
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
     const { type } = toRefs(props)
 
     const isPasswordVisible = ref(false);
+
+    const inputValue = computed({
+      get: () => props.modelValue,
+      set: (value) => emit('update:modelValue', value),
+    });
 
     const calculateType = computed(() => {
       if (type.value === InputType.PASSWORD && isPasswordVisible.value) {
@@ -62,6 +75,7 @@ const InputComponent = defineComponent({
     };
 
     return {
+      inputValue,
       calculateType,
       changePasswordVisibility,
     };
