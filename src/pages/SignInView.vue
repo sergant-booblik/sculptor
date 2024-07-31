@@ -9,7 +9,16 @@
       <h4 class="sign-page-body__title">
         Sign In
       </h4>
-      <p class="sign-page-body__subtitle">
+      <AlertComponent
+        v-if="isSuccessfulRegistered"
+        :color="'success'"
+      >
+        🍾 You are successfully registered. You can now Sign In with your username or email.
+      </AlertComponent>
+      <p
+        class="sign-page-body__subtitle"
+        v-else
+      >
         Don’t have an account yet?
         <router-link
           class="sign-page-body__link"
@@ -20,12 +29,14 @@
       </p>
       <form class="auth-form">
         <InputComponent
+          v-model="user.login"
           placeholder="Your username or email address"
           type="text"
         />
         <InputComponent
           placeholder="Password"
           type="password"
+          v-model="user.password"
         />
         <div class="auth-form__options">
           <CheckboxComponent
@@ -49,21 +60,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import InputComponent from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import { useRoute } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
+import AlertComponent from "@/components/AlertComponent.vue";
+
+export interface LoginData {
+  login: string,
+  password: string,
+}
 
 const SignView = defineComponent({
   components: {
+    AlertComponent,
     ButtonComponent,
     InputComponent,
     CheckboxComponent,
   },
   setup() {
+    const route = useRoute();
+
+    const authStore = useAuthStore();
+
+    const { result } = storeToRefs(authStore);
+
+    const isSuccessfulRegistered = computed(() => route.query['successful-registered'] !== undefined);
+    const login = computed(() => result.value?.email ?? result.value?.username ?? '');
+
+    const user = ref<LoginData>({
+      login: login.value,
+      password: '',
+    });
+
     return {
       CoverImage,
+      user,
+      isSuccessfulRegistered,
     };
   },
 });

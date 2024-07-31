@@ -1,0 +1,12 @@
+.alert {
+	@apply px-4 py-3;
+	@apply rounded;
+	@apply border;
+	@apply text-sm;
+
+	&--success {
+		@apply text-emerald-700;
+		@apply bg-emerald-100;
+		@apply border-emerald-500;
+	}
+}
