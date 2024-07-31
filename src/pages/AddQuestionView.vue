@@ -134,8 +134,6 @@ const AddQuestionView = defineComponent({
       ]
     });
 
-    console.log(import.meta.env.VITE_API_URL);
-
     const saveQuestion = () => {
       return new Promise(() => {
         loading.value = true;

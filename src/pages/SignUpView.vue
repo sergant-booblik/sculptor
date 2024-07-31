@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, type Ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import InputComponent from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
