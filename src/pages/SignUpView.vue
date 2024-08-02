@@ -42,11 +42,11 @@
           @change="clearError('email')"
         />
         <InputComponent
-          v-model="user.password"
-          :errors="error?.password"
           placeholder="Password"
-          type="password"
-          @change="clearError('password')"
+          :type="passwordFieldType"
+          :append-icon="'eye-icon'"
+          v-model="user.password"
+          @click-input-button="changePasswordVisibility"
         />
         <CheckboxComponent
           v-model="isAgreeWithPolicies"
@@ -66,7 +66,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import InputComponent from '@/components/InputComponent.vue';
+import InputComponent, { InputType } from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
 import ButtonComponent from '@/components/ButtonComponent.vue';
@@ -125,15 +125,27 @@ const SignView = defineComponent({
         && isAgreeWithPolicies.value;
     });
 
+    const passwordFieldType = ref(InputType.PASSWORD);
+
+    const changePasswordVisibility = () => {
+      if (passwordFieldType.value === InputType.PASSWORD) {
+        passwordFieldType.value = InputType.TEXT;
+      } else {
+        passwordFieldType.value = InputType.PASSWORD;
+      }
+    };
+
     return {
       CoverImage,
       user,
       result,
       error,
-      register,
+      passwordFieldType,
       isAgreeWithPolicies,
       isFormCanBeSubmitted,
+      register,
       clearError,
+      changePasswordVisibility,
     };
   },
 });

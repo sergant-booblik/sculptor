@@ -35,8 +35,10 @@
         />
         <InputComponent
           placeholder="Password"
-          type="password"
+          :type="passwordFieldType"
+          :append-icon="'eye-icon'"
           v-model="user.password"
+          @click-input-button="changePasswordVisibility"
         />
         <div class="auth-form__options">
           <CheckboxComponent
@@ -61,7 +63,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import InputComponent from '@/components/InputComponent.vue';
+import InputComponent, { InputType } from '@/components/InputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/cover.png';
 import ButtonComponent from "@/components/ButtonComponent.vue";
@@ -97,10 +99,22 @@ const SignView = defineComponent({
       password: '',
     });
 
+    const passwordFieldType = ref(InputType.PASSWORD);
+
+    const changePasswordVisibility = () => {
+      if (passwordFieldType.value === InputType.PASSWORD) {
+        passwordFieldType.value = InputType.TEXT;
+      } else {
+        passwordFieldType.value = InputType.PASSWORD;
+      }
+    };
+
     return {
       CoverImage,
       user,
       isSuccessfulRegistered,
+      passwordFieldType,
+      changePasswordVisibility,
     };
   },
 });

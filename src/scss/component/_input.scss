@@ -1,22 +1,61 @@
 .input-group {
 	@apply relative;
 
+	&--light {
+		.input__wrapper {
+			@apply border-slate-100;
+		}
+
+		input {
+			&::placeholder {
+				@apply text-slate-500;
+			}
+		}
+
+		.first-element,
+		.last-element {
+			@apply text-slate-500;
+		}
+	}
+
+	&--brown {
+		.input__wrapper {
+			@apply border-b-stone-500;
+		}
+
+		input {
+			&::placeholder {
+				@apply text-stone-500;
+			}
+		}
+
+		.first-element,
+		.last-element {
+			@apply text-stone-500;
+		}
+	}
+
 	input {
 		@apply z-10;
 		@apply w-full;
 		@apply py-2 px-1;
 		@apply bg-transparent;
-		@apply border-slate-100 border-b-2;
 		@apply outline-0;
-
-		&::placeholder {
-			@apply text-slate-500;
-		}
 	}
 
-	.last-icon {
-		@apply absolute right-1 top-4;
-		@apply text-slate-500;
+	.input__wrapper {
+		@apply flex items-end gap-1;
+		@apply border-b-2;
+	}
+
+	.first-element,
+	.last-element {
+		@apply shrink-0;
+		@apply mb-2;
+	}
+
+	.last-element {
+		@apply flex items-center gap-1;
 	}
 
 	.input-error {
@@ -30,8 +69,11 @@
 	}
 
 	&--invalid {
-		input {
+		.input__wrapper {
 			@apply border-red-700;
+		}
+
+		input {
 			@apply text-red-700;
 			@apply outline-0;
 

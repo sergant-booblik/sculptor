@@ -7,6 +7,7 @@ const Icon = {
   CartIcon: defineAsyncComponent(() => import('@/components/icon/cart.svg')),
   CloseIcon: defineAsyncComponent(() => import('@/components/icon/close.svg')),
   DeliveryIcon: defineAsyncComponent(() => import('@/components/icon/delivery.svg')),
+  EnvelopeIcon: defineAsyncComponent(() => import('@/components/icon/envelope.svg')),
   EyeIcon: defineAsyncComponent(() => import('@/components/icon/eye.svg')),
   LockIcon: defineAsyncComponent(() => import('@/components/icon/lock.svg')),
   MoneyIcon: defineAsyncComponent(() => import('@/components/icon/money.svg')),

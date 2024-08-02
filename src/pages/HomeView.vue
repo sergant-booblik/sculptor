@@ -5,6 +5,7 @@
   <ValuesSection />
   <BannerSection />
   <ArticlesSection />
+  <NewsletterSection />
 </template>
 
 <script lang="ts">
@@ -15,12 +16,14 @@ import BannerGridSection from '@/components/BannerGridSection.vue';
 import ProductCarousel from '@/components/ProductCarousel.vue';
 import ValuesSection from '@/components/ValuesSection.vue';
 import BannerSection from '@/components/BannerSection.vue';
+import NewsletterSection from '@/components/NewsletterSection.vue';
 
 const HomeView = defineComponent({
   components: {
     ArticlesSection,
     BannerGridSection,
     BannerSection,
+    NewsletterSection,
     ProductCarousel,
     SliderSection,
     ValuesSection,

@@ -2,23 +2,42 @@
   <div
     :class="[
       'input-group',
-      { 'input-group--invalid': errors }
+      `input-group--${color}`,
+      { 'input-group--invalid': errors },
     ]"
   >
     <label>
       {{ label }}
     </label>
-    <input
-      v-model="inputValue"
-      :type="calculateType"
-      :placeholder="placeholder"
-    />
-    <EyeIcon
-      v-if="type === 'password'"
-      role="button"
-      class="last-icon"
-      @click="changePasswordVisibility"
-    />
+    <div class="input__wrapper">
+      <component
+        v-if="prependIcon"
+        :is="prependIcon"
+        class="first-element"
+      />
+      <input
+        v-model="inputValue"
+        :type="calculateType"
+        :placeholder="placeholder"
+      />
+      <div
+        role="button"
+        @click="$emit('clickInputButton')"
+        class="last-element"
+      >
+        <component
+          v-if="appendIcon"
+          :is="appendIcon"
+          class="last-icon"
+        />
+        <span
+          v-if="appendText"
+          class="last-text"
+        >
+        {{ appendText }}
+      </span>
+      </div>
+    </div>
     <ul class="input-error">
       <li
         v-for="(error, index) in errors"
@@ -41,14 +60,19 @@ export enum InputType {
   PASSWORD = 'password',
 }
 
+export enum InputColor {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
 const InputComponent = defineComponent({
   components: {
-    EyeIcon: Icon.EyeIcon,
+    ...Icon,
   },
   props: {
     modelValue: {
       type: String,
-      default: 'undefined',
+      default: undefined,
     },
     label: {
       type: String,
@@ -62,12 +86,28 @@ const InputComponent = defineComponent({
       type: String as PropType<InputType>,
       default: InputType.TEXT,
     },
+    color: {
+      type: String as PropType<InputColor>,
+      default: InputColor.LIGHT,
+    },
+    prependIcon: {
+      type: String,
+      default: undefined,
+    },
+    appendIcon: {
+      type: String,
+      default: undefined,
+    },
+    appendText: {
+      type: String,
+      default: undefined,
+    },
     errors: {
       type: Array as PropType<String[]>,
       default: undefined,
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'clickInputButton'],
   setup(props, { emit }) {
     const { type } = toRefs(props)
 
@@ -89,14 +129,9 @@ const InputComponent = defineComponent({
       return type.value;
     });
 
-    const changePasswordVisibility = () => {
-      isPasswordVisible.value = !isPasswordVisible.value;
-    };
-
     return {
       inputValue,
       calculateType,
-      changePasswordVisibility,
     };
   },
 });
