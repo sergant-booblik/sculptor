@@ -4,6 +4,7 @@
     <HeaderSection />
   </template>
   <router-view />
+  <FooterSection v-if="layout === 'MAIN'" />
 </template>
 
 <script lang="ts">
@@ -11,9 +12,11 @@ import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import NotifySection from '@/components/NotifySection.vue';
 import HeaderSection from '@/components/HeaderSection.vue';
+import FooterSection from "@/components/FooterSection.vue";
 
 const App = defineComponent({
   components: {
+    FooterSection,
     NotifySection,
     HeaderSection,
   },

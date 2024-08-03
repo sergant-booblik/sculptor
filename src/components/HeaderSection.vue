@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import {defineAsyncComponent, defineComponent} from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
 import Icon from "@/components/icon";
 import {useBaseStore} from "@/stores/base";
 import {storeToRefs} from "pinia";
@@ -67,12 +67,7 @@ const HeaderSection = defineComponent({
 
     const { cartCounter } = storeToRefs(baseStore);
 
-    const menuItems = [
-      { text: 'Home', page: 'HOME' },
-      { text: 'Shop', page: 'SHOP' },
-      { text: 'Product', page: 'PRODUCT' },
-      { text: 'Contact Us', page: 'CONTACT_US' },
-    ];
+    const menuItems = computed(() => baseStore.menu);
 
     return {
       menuItems,

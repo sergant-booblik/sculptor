@@ -9,6 +9,8 @@ const Icon = {
   DeliveryIcon: defineAsyncComponent(() => import('@/components/icon/delivery.svg')),
   EnvelopeIcon: defineAsyncComponent(() => import('@/components/icon/envelope.svg')),
   EyeIcon: defineAsyncComponent(() => import('@/components/icon/eye.svg')),
+  FacebookIcon: defineAsyncComponent(() => import('@/components/icon/facebook.svg')),
+  InstagramIcon: defineAsyncComponent(() => import('@/components/icon/instagram.svg')),
   LockIcon: defineAsyncComponent(() => import('@/components/icon/lock.svg')),
   MoneyIcon: defineAsyncComponent(() => import('@/components/icon/money.svg')),
   SearchIcon: defineAsyncComponent(() => import('@/components/icon/search.svg')),
@@ -17,6 +19,7 @@ const Icon = {
   StarControlPrevIcon: defineAsyncComponent(() => import('@/components/icon/star.svg')),
   StarEmptyControlPrevIcon: defineAsyncComponent(() => import('@/components/icon/star-empty.svg')),
   TicketPercentIcon: defineAsyncComponent(() => import('@/components/icon/ticket-percent.svg')),
+  YoutubeIcon: defineAsyncComponent(() => import('@/components/icon/youtube.svg')),
 }
 
 export default Icon;
