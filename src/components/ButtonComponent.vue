@@ -9,7 +9,15 @@
     :disabled="disabled"
     @click="$emit('click')"
   >
+    <component
+      v-if="prependIcon"
+      :is="prependIcon"
+    />
     {{ label }}
+    <component
+      v-if="appendIcon"
+      :is="appendIcon"
+    />
     <ArrowRightIcon v-if="type === 'link'" />
   </button>
 </template>
@@ -27,11 +35,12 @@ export enum ButtonType {
 export enum ButtonColor {
   PRIMARY = 'primary',
   DARK = 'dark',
+  DANGER = 'danger',
 }
 
 const ButtonComponent = defineComponent({
   components: {
-    ArrowRightIcon: Icon.ArrowRightIcon,
+    ...Icon,
   },
   props: {
     type: {
@@ -48,11 +57,19 @@ const ButtonComponent = defineComponent({
     },
     label: {
       type: String,
-      required: true,
+      default: undefined,
     },
     disabled: {
       type: Boolean,
       default: false,
+    },
+    prependIcon: {
+      type: String,
+      default: undefined,
+    },
+    appendIcon: {
+      type: String,
+      default: undefined,
     },
   },
   emits: ['click'],

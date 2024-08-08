@@ -3,9 +3,9 @@
     <div class="header__wrapper">
       <router-link
         class="header__logo"
-        :to="{ name: 'HOME' }"
+        :to="{ name: 'DASHBOARD' }"
       >
-        <LogoIcon />
+        <img alt="logo" :src="LogoImage">
       </router-link>
       <div class="header__menu">
         <div
@@ -25,24 +25,9 @@
       <div class="header__navbar">
         <router-link
           class="header__navbar-item"
-          :to="{ name: 'SEARCH' }"
-        >
-          <SearchIcon />
-        </router-link>
-        <router-link
-          class="header__navbar-item"
          :to="{ name: 'SIGN_IN' }"
         >
           <AccountIcon />
-        </router-link>
-        <router-link
-          class="header__navbar-item"
-          :to="{ name: 'CART' }"
-        >
-          <CartIcon />
-          <span class="header__cart-counter">
-            {{ cartCounter }}
-          </span>
         </router-link>
       </div>
     </div>
@@ -50,17 +35,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
-import Icon from "@/components/icon";
-import {useBaseStore} from "@/stores/base";
-import {storeToRefs} from "pinia";
+import { computed, defineComponent } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useBaseStore } from '@/stores/base';
+import LogoImage from '@/assets/images/logo.png'
+import Icon from '@/components/icon';
 
 const HeaderSection = defineComponent({
   components: {
-    LogoIcon: defineAsyncComponent(() => import('@/assets/logo.svg')),
     AccountIcon: Icon.AccountIcon,
-    CartIcon: Icon.CartIcon,
-    SearchIcon: Icon.SearchIcon,
   },
   setup() {
     const baseStore = useBaseStore();
@@ -70,6 +53,7 @@ const HeaderSection = defineComponent({
     const menuItems = computed(() => baseStore.menu);
 
     return {
+      LogoImage,
       menuItems,
       cartCounter,
     }

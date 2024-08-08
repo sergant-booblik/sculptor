@@ -10,10 +10,8 @@ export const useBaseStore = defineStore('base',  {
   state: (): BaseState => ({
     cartCounter: 0,
     menu: [
-      { text: 'Home', page: RouteName.HOME },
-      { text: 'Shop', page: RouteName.SHOP },
-      { text: 'Product', page: RouteName.PRODUCT },
-      { text: 'Contact Us', page: RouteName.CONTACT_US },
+      { text: 'Home', page: RouteName.DASHBOARD },
+      { text: 'Quiz', page: RouteName.QUIZ },
     ],
   }),
 })

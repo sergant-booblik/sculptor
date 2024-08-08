@@ -1,13 +1,14 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/pages/HomeView.vue'
-import SignInView from '@/pages/SignInView.vue';
-import SignUpView from '@/pages/SignUpView.vue';
-import ShopView from '@/pages/ShopView.vue';
-import AddQuestionView from '@/pages/AddQuestionView.vue';
+import DashboardView from '@/views/DashboardView.vue';
+import { useAuthStore } from "@/stores/auth";
+import SignInView from '@/views/SignInView.vue';
+import SignUpView from '@/views/SignUpView.vue';
+import QuizView from "@/views/QuizView.vue";
 
-interface RouteMeta {
+interface RouteMeta extends RouteRecordNormalized {
   layout: LayoutType,
+  auth?: boolean,
 }
 
 export enum LayoutType {
@@ -16,84 +17,59 @@ export enum LayoutType {
 }
 
 export enum RouteName {
+  DASHBOARD = 'DASHBOARD',
   SIGN_IN = 'SIGN_IN',
   SIGN_UP = 'SIGN_UP',
-  HOME = 'HOME',
-  ACCOUNT = 'ACCOUNT',
-  SHOP = 'SHOP',
-  SEARCH = 'SEARCH',
-  PRODUCT = 'PRODUCT',
-  CART = 'CART',
-  CONTACT_US = 'CONTACT_US',
+  QUIZ = 'QUIZ',
 }
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: RouteName.HOME,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
+    name: RouteName.DASHBOARD,
+    meta: { layout: LayoutType.MAIN, auth: true },
+    component: DashboardView,
   },
   {
     path: '/sign-in',
     name: RouteName.SIGN_IN,
-    meta: { layout: LayoutType.EMPTY },
+    meta: { layout: LayoutType.EMPTY, auth: false },
     component: SignInView,
   },
   {
     path: '/sign-up',
     name: RouteName.SIGN_UP,
-    meta: { layout: LayoutType.EMPTY },
+    meta: { layout: LayoutType.EMPTY, auth: false },
     component: SignUpView,
   },
   {
-    path: '/shop',
-    name: RouteName.SHOP,
-    meta: { layout: LayoutType.MAIN },
-    component: ShopView,
-  },
-  {
-    path: '/account',
-    name: RouteName.ACCOUNT,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
-  },
-  {
-    path: '/search',
-    name: RouteName.SEARCH,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
-  },
-  {
-    path: '/product',
-    name: RouteName.PRODUCT,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
-  },
-  {
-    path: '/cart',
-    name: RouteName.CART,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
-  },
-  {
-    path: '/contact-us',
-    name: RouteName.CONTACT_US,
-    meta: { layout: LayoutType.MAIN },
-    component: HomeView,
-  },
-  {
-    path: '/add-question',
-    name: 'ADD_QUESTION',
-    meta: { layout: LayoutType.EMPTY },
-    component: AddQuestionView,
+    path: '/quiz',
+    name: RouteName.QUIZ,
+    meta: { layout: LayoutType.MAIN, auth: true },
+    component: QuizView,
   }
-
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (authStore.isAuth) {
+    next();
+    return;
+  }
+  authStore.authToken().then(() => {
+    const isRequireAuth = to.matched.some((record) => record.meta.auth);
+    const isUserAuthorize = authStore.isAuth;
+    if (isRequireAuth && !isUserAuthorize) {
+      next({ name: RouteName.SIGN_IN });
+    } else {
+      next();
+    }
+  });
+});
+
+export default router;

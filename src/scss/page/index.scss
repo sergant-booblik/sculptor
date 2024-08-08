@@ -1,0 +1,26 @@
+@import "sign";
+@import "quiz";
+
+.page {
+	@apply container;
+	@apply mt-8;
+}
+
+.page-header {
+	@apply flex items-center justify-center flex-col;
+	@apply py-12 px-4;
+	@apply bg-slate-300;
+}
+
+.page-title {
+	@apply text-slate-600;
+	@apply mb-4;
+}
+
+.page-subtitle {
+	@apply text-slate-600;
+}
+
+.page-body {
+	@apply mt-12;
+}

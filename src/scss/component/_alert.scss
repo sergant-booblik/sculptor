@@ -9,4 +9,10 @@
 		@apply bg-emerald-100;
 		@apply border-emerald-500;
 	}
+
+	&--danger {
+		@apply text-red-700;
+		@apply bg-red-100;
+		@apply border-red-500;
+	}
 }

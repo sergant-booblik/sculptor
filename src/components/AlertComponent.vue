@@ -17,7 +17,8 @@
 import { defineComponent, type PropType } from 'vue';
 
 export enum AlertColor {
-  SUCCESS = 'success'
+  SUCCESS = 'success',
+  DANGER = 'danger',
 }
 
 const AlertComponent = defineComponent({

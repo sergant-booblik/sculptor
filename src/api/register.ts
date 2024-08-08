@@ -1,5 +1,4 @@
-import type { RegisterData } from "@/pages/SignUpView.vue";
-import type { ErrorData } from "@/stores/auth";
+import type { ErrorData, RegisterData } from '@/stores/auth';
 
 export interface RegisterRequest {
   readonly name: string;

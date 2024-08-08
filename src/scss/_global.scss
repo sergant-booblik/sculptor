@@ -1,3 +1,15 @@
+.body {
+	&--overlay {
+		&:before {
+			content: '';
+			@apply absolute;
+			@apply z-20;
+			@apply w-full h-full;
+			@apply bg-slate-800 bg-opacity-70;
+		}
+	}
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Poppins', sans-serif;
 }
@@ -12,6 +24,10 @@ h4 {
 
 h5 {
 	@apply text-3xl;
+}
+
+h6 {
+	@apply text-2xl;
 }
 
 @mixin image {

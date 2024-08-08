@@ -4,23 +4,12 @@
 
 @import "fonts";
 @import "global";
+@import "animation";
 
-@import "views/sign-page";
+@import "component";
 
-@import "component/announcement-bar";
-@import "component/header";
-@import "component/footer";
-@import "component/slider";
-@import "component/banner-grid";
-@import "component/carousel";
-@import "component/values";
-@import "component/banner";
-@import "component/articles";
-@import "component/newsletter";
+@import "section";
 
-@import "component/input";
-@import "component/checkbox";
-@import "component/button";
-@import "component/alert";
+@import "page";
 
 

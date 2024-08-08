@@ -1,0 +1,16 @@
+.select-group {
+	@apply relative;
+	@apply w-fit;
+	@apply px-2 py-1;
+	@apply border border-slate-950;
+}
+
+.select {
+	@apply absolute top-0 left-0;
+	@apply w-full h-full;
+	@apply opacity-0;
+}
+
+.select__wrap {
+	@apply flex;
+}
