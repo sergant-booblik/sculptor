@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { api } from '@/api';
 import type { RegisterResponse } from '@/api/register';
-import type { ErrorData, LoginData, RegisterData } from "@/type/auth";
+import type { ErrorData, LoginData, RegisterData } from '@/type/auth';
 
 interface AuthState {
   isAuth: boolean,

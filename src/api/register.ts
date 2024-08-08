@@ -1,4 +1,4 @@
-import type { ErrorData, RegisterData } from '@/stores/auth';
+import type { ErrorData, RegisterData } from '@/type/auth';
 
 export interface RegisterRequest {
   readonly name: string;

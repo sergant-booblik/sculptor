@@ -1,4 +1,4 @@
-import type { ErrorData, LoginData } from "@/stores/auth";
+import type { ErrorData, LoginData } from "@/type/auth";
 
 export interface LoginRequest extends LoginData {}
 
