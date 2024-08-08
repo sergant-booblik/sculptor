@@ -14,7 +14,7 @@ export interface RegisterResponse {
 
 export function createRegisterFunction(apiUrl: string): (request: RegisterRequest) => Promise<RegisterResponse> {
   return (request: RegisterRequest): Promise<RegisterResponse> => {
-    const url = new URL(`${apiUrl}/register/`);
+    const url = new URL(`${apiUrl}/user/sign-in/`);
     return fetch(url.toString(), {
       method: 'POST',
       body: JSON.stringify(request),
