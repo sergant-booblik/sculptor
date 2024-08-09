@@ -1,7 +1,6 @@
 .page--quiz {
-
 	.page-body {
-
+		@apply container;
 	}
 
 	.quiz-settings {
@@ -126,7 +125,6 @@
 			@apply opacity-0;
 			@apply absolute -bottom-4 right-4;
 			@apply flex gap-2;
-			@apply transition-all;
 		}
 
 		&--grid {
@@ -140,18 +138,42 @@
 			.item__image {
 				@apply absolute;
 			}
+
+			.item__controls {
+				transition:
+								bottom 50ms ease-in-out,
+								opacity 100ms ease-in-out;
+			}
 		}
 
 		&--side {
 			@apply grid-cols-2;
+			@apply text-slate-700;
 
-			.item__image,
+			.item__image {
+				@apply w-1/2;
+				&:before {
+					@apply opacity-10;
+				}
+			}
+
 			.item__body {
 				@apply w-1/2;
+				@apply bg-slate-100;
 			}
 
 			.quiz-card {
 				@apply flex;
+			}
+
+			.item__controls {
+				@apply static;
+				@apply opacity-100;
+				@apply mt-8;
+			}
+
+			.item__footer {
+				@apply mb-0;
 			}
 		}
 	}

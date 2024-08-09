@@ -34,6 +34,7 @@ export enum ButtonType {
 
 export enum ButtonColor {
   PRIMARY = 'primary',
+  SECONDARY = 'secondary',
   DARK = 'dark',
   DANGER = 'danger',
 }

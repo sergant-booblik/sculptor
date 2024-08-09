@@ -9,8 +9,8 @@
       </router-link>
       <div class="header__menu">
         <div
-          v-for="(item, index) in menuItems"
-          :key="index"
+          v-for="item in menuItems"
+          :key="item.page"
           class="header__menu-item"
         >
           <router-link

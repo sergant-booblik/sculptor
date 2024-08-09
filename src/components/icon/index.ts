@@ -7,6 +7,7 @@ const Icon = {
   EyeIcon: defineAsyncComponent(() => import('@/components/icon/eye.svg')),
   PencilIcon: defineAsyncComponent(() => import('@/components/icon/pencil.svg')),
   PlayIcon: defineAsyncComponent(() => import('@/components/icon/play.svg')),
+  PlusIcon: defineAsyncComponent(() => import('@/components/icon/plus.svg')),
   TrashIcon: defineAsyncComponent(() => import('@/components/icon/trash.svg')),
 }
 

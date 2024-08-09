@@ -1,12 +1,16 @@
 <template>
  <div class="page page--quiz">
    <div class="page-header">
-     <h1 class="page-title">
-       Quiz games
-     </h1>
-     <p class="page-subtitle">
-       Let’s play the quiz you always imagined
-     </p>
+     <div class="page-header__wrapper">
+       <h1 class="page-title">
+         Ваши игры
+       </h1>
+       <ButtonComponent
+         prepend-icon="plus-icon"
+         :color="'secondary'"
+         label="Создать игру"
+       />
+     </div>
    </div>
   <div class="page-body">
     <div class="quiz-settings">
@@ -39,7 +43,6 @@
       <div
         v-for="item in quiz"
         :key="item.id"
-        role="button"
         class="quiz-card"
       >
         <div
@@ -63,7 +66,7 @@
                   ⭐
                 </div>
                 <div class="chip__text">
-                  {{ item.question.length ?? 0 }} вопросов
+                  Вопросов: {{ item.question.length ?? 'нет' }}
                 </div>
               </div>
               <div class="item__chip">
@@ -71,7 +74,7 @@
                   ⏱️
                 </div>
                 <div class="chip__text">
-                  {{ '2' }} минуты
+                  Время: {{ '2' }} мин.
                 </div>
               </div>
               <div
@@ -94,21 +97,13 @@
               <ButtonComponent
                 prepend-icon="pencil-icon"
                 :color="'dark'"
+                @click="navigateToEdit(item.id)"
               />
               <ButtonComponent
                 prepend-icon="trash-icon"
                 :color="'danger'"
               />
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="quiz-card">
-        <div class="item__image"></div>
-        <div class="item__body">
-          <h4> + </h4>
-          <div class="item__details">
-            Add new quiz
           </div>
         </div>
       </div>
@@ -124,6 +119,10 @@ import { useQuizStore } from '@/stores/quiz';
 import { useCategoryStore } from '@/stores/category';
 import SelectComponent, { type SelectChoice } from '@/components/SelectComponent.vue';
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import { useRouter } from "vue-router";
+import { RouteName } from "@/router";
+import Icon from "@/components/icon";
+import { useBaseStore } from "@/stores/base";
 
 const QuizView = defineComponent({
   components: {
@@ -131,6 +130,7 @@ const QuizView = defineComponent({
     SelectComponent,
     GridViewIcon: defineAsyncComponent(() => import('@/assets/grid-view.svg')),
     SideViewIcon: defineAsyncComponent(() => import('@/assets/side-view.svg')),
+    PlusIcon: Icon.PlusIcon,
   },
   beforeRouteEnter() {
     const quizStore = useQuizStore();
@@ -143,14 +143,18 @@ const QuizView = defineComponent({
     }
   },
   setup() {
+    const router = useRouter();
+
     const quizStore = useQuizStore();
     const categoryStore = useCategoryStore();
+    const baseStore = useBaseStore();
 
     const { quiz } = storeToRefs(quizStore);
     const { categories } = storeToRefs(categoryStore);
+    const { views } = storeToRefs(baseStore);
 
     const categoryChoices = computed(() => {
-      const initChoices: SelectChoice[] = [{key: undefined, value: 'All categories', enabled: true}];
+      const initChoices: SelectChoice[] = [{key: undefined, value: 'Все категории', enabled: true}];
       categories.value?.map((category) => {
         initChoices.push({
           key: category.id,
@@ -162,10 +166,6 @@ const QuizView = defineComponent({
     });
     const currentChoiceId = ref(undefined);
 
-    const views = computed(() => [
-      { id: 0, name: 'grid' },
-      { id: 1, name: 'side' },
-    ]);
     const selectedView = ref(0);
 
     const setView = (id: number) => {
@@ -176,6 +176,10 @@ const QuizView = defineComponent({
       const view = views.value.find((view) => view.id === selectedView.value);
       return `quiz-body--${view?.name}`
     });
+
+    const navigateToEdit = (id: number) => {
+      router.push({ name: RouteName.EDIT_QUIZ, params: { id } });
+    }
 
     watch(currentChoiceId, (newChoiceId) => {
       quizStore.fetchQuiz(newChoiceId);
@@ -190,6 +194,7 @@ const QuizView = defineComponent({
       selectedView,
       viewClass,
       setView,
+      navigateToEdit,
     }
   },
 });

@@ -1,15 +1,11 @@
-import type { RouteRecordNormalized, RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '@/views/DashboardView.vue';
 import { useAuthStore } from "@/stores/auth";
 import SignInView from '@/views/SignInView.vue';
 import SignUpView from '@/views/SignUpView.vue';
-import QuizView from "@/views/QuizView.vue";
-
-interface RouteMeta extends RouteRecordNormalized {
-  layout: LayoutType,
-  auth?: boolean,
-}
+import QuizView from '@/views/QuizView.vue';
+import EditQuizView from '@/components/EditQuizView.vue';
 
 export enum LayoutType {
   EMPTY = 'EMPTY',
@@ -21,6 +17,7 @@ export enum RouteName {
   SIGN_IN = 'SIGN_IN',
   SIGN_UP = 'SIGN_UP',
   QUIZ = 'QUIZ',
+  EDIT_QUIZ = 'EDIT_QUIZ',
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -44,9 +41,19 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/quiz',
-    name: RouteName.QUIZ,
     meta: { layout: LayoutType.MAIN, auth: true },
-    component: QuizView,
+    children: [
+      {
+        path: '',
+        name: RouteName.QUIZ,
+        component: QuizView,
+      },
+      {
+        path: ':id',
+        name: RouteName.EDIT_QUIZ,
+        component: EditQuizView,
+      }
+    ]
   }
 ]
 
