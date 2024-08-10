@@ -1,0 +1,26 @@
+.modal {
+	@apply absolute top-0 left-0;
+	@apply h-screen w-screen;
+	@apply flex justify-center items-center;
+
+	&::before {
+		content: "";
+		@apply z-10;
+		@apply absolute top-0 left-0;
+		@apply h-screen w-screen;
+		@apply backdrop-blur;
+	}
+}
+
+.modal__wrapper {
+	@apply relative;
+	@apply z-20;
+	@apply min-w-fit max-w-full;
+	@apply min-h-fit max-h-full;
+	@apply px-8 py-4;
+	@apply border border-slate-500;
+}
+
+.close-icon {
+	@apply absolute -top-5 -right-5;
+}

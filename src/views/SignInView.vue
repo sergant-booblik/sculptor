@@ -45,13 +45,13 @@
         class="auth-form"
         @submit.prevent="login"
       >
-        <InputComponent
+        <ClearInputComponent
           v-model="user.username"
           placeholder="Your username or email address"
           type="text"
           @change="clearError('username')"
         />
-        <InputComponent
+        <ClearInputComponent
           placeholder="Password"
           :type="passwordFieldType"
           :append-icon="'eye-icon'"
@@ -84,7 +84,7 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import InputComponent, { InputType } from '@/components/InputComponent.vue';
+import ClearInputComponent, { InputType } from '@/components/ClearInputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import AlertComponent from '@/components/AlertComponent.vue';
@@ -97,7 +97,7 @@ const SignView = defineComponent({
   components: {
     AlertComponent,
     ButtonComponent,
-    InputComponent,
+    ClearInputComponent,
     CheckboxComponent,
   },
   beforeRouteEnter() {

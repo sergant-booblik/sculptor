@@ -21,13 +21,21 @@ import {
   createFetchQuestionsFunction,
   type FetchQuestionsResponse,
 } from '@/api/fetch-questions';
+import {
+  createAddQuizFunction,
+  type AddQuizRequest,
+} from "@/api/add-quiz";
+import type { ErrorData, Quiz } from "@/type/quiz";
 
 interface Api {
   login: (request: LoginRequest) => Promise<LoginResponse>;
   register: (request: RegisterRequest) => Promise<RegisterResponse>;
 
   fetchCategories: () => Promise<FetchCategoriesResponse>;
+
   fetchQuiz: (request: FetchQuizRequest) => Promise<FetchQuizResponse>;
+  addQuiz: (request: AddQuizRequest) => Promise<Quiz | ErrorData>;
+
   fetchQuestions: () => Promise<FetchQuestionsResponse>;
 }
 
@@ -40,7 +48,10 @@ function createApi(): Api {
     register: createRegisterFunction(apiUrl),
 
     fetchCategories: createFetchCategoriesFunction(apiUrl),
+
     fetchQuiz: createFetchQuizFunction(apiUrl),
+    addQuiz: createAddQuizFunction(apiUrl),
+
     fetchQuestions: createFetchQuestionsFunction(apiUrl),
   }
 }

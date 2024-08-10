@@ -17,7 +17,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
-const InputComponent = defineComponent({
+const CheckboxComponent = defineComponent({
   props: {
     modelValue: {
       type: Boolean,
@@ -41,5 +41,5 @@ const InputComponent = defineComponent({
   },
 });
 
-export default InputComponent;
+export default CheckboxComponent;
 </script>

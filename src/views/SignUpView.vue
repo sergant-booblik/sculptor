@@ -22,26 +22,26 @@
         class="auth-form"
         @submit.prevent="register"
       >
-        <InputComponent
+        <ClearInputComponent
           v-model="user.name"
           placeholder="Your name"
           type="text"
         />
-        <InputComponent
+        <ClearInputComponent
           v-model="user.username"
           :errors="error?.username"
           placeholder="Username"
           type="text"
           @change="clearError('username')"
         />
-        <InputComponent
+        <ClearInputComponent
           v-model="user.email"
           :errors="error?.email"
           placeholder="Email address"
           type="email"
           @change="clearError('email')"
         />
-        <InputComponent
+        <ClearInputComponent
           placeholder="Password"
           :type="passwordFieldType"
           :append-icon="'eye-icon'"
@@ -66,7 +66,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import InputComponent, { InputType } from '@/components/InputComponent.vue';
+import ClearInputComponent, { InputType } from '@/components/ClearInputComponent.vue';
 import CheckboxComponent from '@/components/CheckboxComponent.vue';
 import CoverImage from '@/assets/images/sign-cover-2.jpg';
 import ButtonComponent from '@/components/ButtonComponent.vue';
@@ -79,7 +79,7 @@ import type { ErrorData, RegisterData } from "@/type/auth";
 const SignView = defineComponent({
   components: {
     ButtonComponent,
-    InputComponent,
+    ClearInputComponent,
     CheckboxComponent,
   },
   beforeRouteEnter() {

@@ -5,7 +5,7 @@ import { useAuthStore } from "@/stores/auth";
 import SignInView from '@/views/SignInView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import QuizView from '@/views/QuizView.vue';
-import EditQuizView from '@/components/EditQuizView.vue';
+import EditQuizView from '@/views/EditQuizView.vue';
 
 export enum LayoutType {
   EMPTY = 'EMPTY',

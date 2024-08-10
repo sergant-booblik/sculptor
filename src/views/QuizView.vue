@@ -9,6 +9,7 @@
          prepend-icon="plus-icon"
          :color="'secondary'"
          label="Создать игру"
+         @click="addGameModal()"
        />
      </div>
    </div>
@@ -66,7 +67,7 @@
                   ⭐
                 </div>
                 <div class="chip__text">
-                  Вопросов: {{ item.question.length ?? 'нет' }}
+                  Вопросов: {{ item.question_count }}
                 </div>
               </div>
               <div class="item__chip">
@@ -123,6 +124,7 @@ import { useRouter } from "vue-router";
 import { RouteName } from "@/router";
 import Icon from "@/components/icon";
 import { useBaseStore } from "@/stores/base";
+import { Modal, useModalStore } from "@/stores/modal";
 
 const QuizView = defineComponent({
   components: {
@@ -148,6 +150,7 @@ const QuizView = defineComponent({
     const quizStore = useQuizStore();
     const categoryStore = useCategoryStore();
     const baseStore = useBaseStore();
+    const modalStore = useModalStore();
 
     const { quiz } = storeToRefs(quizStore);
     const { categories } = storeToRefs(categoryStore);
@@ -177,6 +180,10 @@ const QuizView = defineComponent({
       return `quiz-body--${view?.name}`
     });
 
+    const addGameModal = () => {
+      modalStore.setModal(Modal.ADD_GAME);
+    }
+
     const navigateToEdit = (id: number) => {
       router.push({ name: RouteName.EDIT_QUIZ, params: { id } });
     }
@@ -194,6 +201,7 @@ const QuizView = defineComponent({
       selectedView,
       viewClass,
       setView,
+      addGameModal,
       navigateToEdit,
     }
   },

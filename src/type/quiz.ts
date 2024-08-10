@@ -1,9 +1,3 @@
-export interface Category {
-  id: number,
-  name: string,
-  description: string,
-}
-
 export interface Quiz {
   id: number,
   name: string,
@@ -11,5 +5,10 @@ export interface Quiz {
   user_id: number,
   image: string,
   is_draft: boolean,
-  question: string[],
+  question_count: number,
+}
+
+export interface ErrorData {
+  name: string[] | undefined,
+  user_id: string[] | undefined,
 }

@@ -1,17 +1,18 @@
 <template>
-  <template v-if="layout === 'MAIN' ">
-    <HeaderSection />
-  </template>
+  <HeaderSection v-if="layout === 'MAIN' " />
   <router-view />
+  <ModalComponent />
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import HeaderSection from "@/components/HeaderSection.vue";
-import { useRoute } from "vue-router";
+import HeaderSection from '@/components/HeaderSection.vue';
+import { useRoute } from 'vue-router';
+import ModalComponent from '@/components/ModalComponent.vue';
 
 const App = defineComponent({
   components: {
+    ModalComponent,
     HeaderSection,
   },
   setup() {

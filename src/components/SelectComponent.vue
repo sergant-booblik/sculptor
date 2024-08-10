@@ -1,5 +1,9 @@
 <template>
-  <div class="select-group">
+  {{ label }}
+  <div :class="[
+    'select-group',
+    { 'select-group--flex': flex },
+  ]">
     <select
       v-model="selectedValue"
       class="select"
@@ -43,13 +47,21 @@ const SelectComponent = defineComponent({
       default: undefined,
     },
     choices: {
-      required: true,
       type: Array as PropType<SelectChoice[]>,
+      default: () => [],
     },
     placeholder: {
       type: String,
       default: undefined,
     },
+    flex: {
+      type: Boolean,
+      default: false,
+    },
+    label: {
+      type: String,
+      default: undefined,
+    }
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -68,3 +80,26 @@ const SelectComponent = defineComponent({
 
 export default SelectComponent;
 </script>
+
+<style scoped lang="scss">
+.select-group {
+  @apply relative;
+  @apply w-fit;
+  @apply px-2 py-1;
+  @apply border border-slate-950;
+
+  &--flex {
+    @apply w-full;
+  }
+}
+
+.select {
+  @apply absolute top-0 left-0;
+  @apply w-full h-full;
+  @apply opacity-0;
+}
+
+.select__wrap {
+  @apply flex justify-between;
+}
+</style>

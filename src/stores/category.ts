@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { api } from '@/api';
-import type { Category } from '@/type/quiz';
+import type { Category } from '@/type/category';
 
 interface CategoryState {
   categories: Category[] | undefined,

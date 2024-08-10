@@ -1,44 +1,17 @@
 <template>
-  <div
-    :class="[
-      'input-group',
-      `input-group--${color}`,
-      { 'input-group--invalid': errors },
-    ]"
-  >
+  <div class="input-group">
     <label>
       {{ label }}
     </label>
     <div class="input__wrapper">
-      <component
-        v-if="prependIcon"
-        :is="prependIcon"
-        class="first-element"
-      />
       <input
         v-model="inputValue"
-        :type="calculateType"
         :placeholder="placeholder"
+        :disabled="disabled"
+        class="input"
       />
-      <div
-        role="button"
-        @click="$emit('clickInputButton')"
-        class="last-element"
-      >
-        <component
-          v-if="appendIcon"
-          :is="appendIcon"
-          class="last-icon"
-        />
-        <span
-          v-if="appendText"
-          class="last-text"
-        >
-        {{ appendText }}
-      </span>
-      </div>
     </div>
-    <ul class="input-error">
+    <ul class="input__error">
       <li
         v-for="(error, index) in errors"
         :key="index"
@@ -49,92 +22,55 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, toRefs } from 'vue';
-import type { PropType } from 'vue';
-import Icon from '@/components/icon';
+<script setup lang="ts">
+import { computed } from 'vue';
 
-export enum InputType {
-  TEXT = 'text',
-  EMAIL = 'email',
-  PASSWORD = 'password',
+interface Props {
+  modelValue?: string | number,
+  label?: string,
+  placeholder?: string,
+  disabled?: boolean,
+  errors?: string[],
 }
 
-export enum InputColor {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: undefined,
+  label: undefined,
+  placeholder: undefined,
+  disabled: false,
+  errors: undefined,
+});
 
-const InputComponent = defineComponent({
-  components: {
-    ...Icon,
-  },
-  props: {
-    modelValue: {
-      type: String,
-      default: undefined,
-    },
-    label: {
-      type: String,
-      default: undefined,
-    },
-    placeholder: {
-      type: String,
-      default: undefined,
-    },
-    type: {
-      type: String as PropType<InputType>,
-      default: InputType.TEXT,
-    },
-    color: {
-      type: String as PropType<InputColor>,
-      default: InputColor.LIGHT,
-    },
-    prependIcon: {
-      type: String,
-      default: undefined,
-    },
-    appendIcon: {
-      type: String,
-      default: undefined,
-    },
-    appendText: {
-      type: String,
-      default: undefined,
-    },
-    errors: {
-      type: Array as PropType<String[]>,
-      default: undefined,
-    },
-  },
-  emits: ['update:modelValue', 'change', 'clickInputButton'],
-  setup(props, { emit }) {
-    const { type } = toRefs(props)
+const emit = defineEmits(['update:modelValue', 'change']);
 
-    const isPasswordVisible = ref(false);
-
-    const inputValue = computed({
-      get: () => props.modelValue,
-      set: (value) => {
-        emit('update:modelValue', value);
-        emit('change');
-      },
-    });
-
-    const calculateType = computed(() => {
-      if (type.value === InputType.PASSWORD && isPasswordVisible.value) {
-        return InputType.TEXT;
-      }
-
-      return type.value;
-    });
-
-    return {
-      inputValue,
-      calculateType,
-    };
+const inputValue = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value);
+    emit('change');
   },
 });
 
-export default InputComponent;
 </script>
+
+<style scoped lang="scss">
+  .input-group {
+    @apply mt-2 mb-5;
+  }
+
+  .input {
+    @apply w-full;
+    @apply px-2 py-1;
+    @apply border border-slate-500;
+  }
+
+  .input__error {
+    @apply absolute;
+    @apply text-xs;
+    @apply text-red-700;
+
+    li {
+      animation: shake 150ms;
+    }
+  }
+</style>
